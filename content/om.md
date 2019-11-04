@@ -16,13 +16,18 @@ views:
                 type: single
                 route: block/om-redovisa
 ---
-Om
+Innehåll i kursen Ramverk1
 =========================
 
-Detta innehåll är skrivet i markdown och du hittar innehållet i filen `content/om.md`.
+Kursen omfattar följande områden:
 
-Skriv några kloka ord om kursen?
+- Webbaserad programmering i ramverk med designmönster implementerade i programmeringsspråket PHP.
+- Objektorienterade konstruktioner.
+- Utveckling av webbapplikation i ramverk.
+- Återanvändbara moduler, paketering och distribution.
+- Designmönster för ramverk.
+- Testdriven utveckling och tekniker för enhetstestning.
+- Automatiserad testning och byggning.
+- Relaterade verktyg och tekniker.
 
-Lägg till en representativ bild för kursen, enligt ditt egna val.
-
-[FIGURE src=image/car.png?w=300 caption="En fin bil som demobild."]
+[FIGURE src=image/kyria.jpg caption="Layouten på mitt kommande tangentbord. Frågan är hur långsamt man kommer skriva med detta..."]

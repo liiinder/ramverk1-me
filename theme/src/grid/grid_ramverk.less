@@ -1,0 +1,35 @@
+/**
+* Import the vertical grid.
+*/
+@import "@desinax/vertical-grid/less/grid.less";
+
+// Show the grid
+.vgrid .inner-wrap {
+    @gridImage: "../img/theme/grid_24x30x10-nomargin.png";
+    // @gridImage: "../img/grid_12x60x20-nomargin.png";
+    #desinax-vgrid.showGrid(@gridImage, @maxWidth);
+
+    &.inner-wrap-header,
+    &.inner-wrap-footer {
+        #desinax-vgrid.showGrid(@gridImage);
+    }
+}
+
+/**
+* Import the typographic grid.
+*/
+@import "@desinax/typographic-grid/less/typography-font-families.less";
+@import "@desinax/typographic-grid/less/typography-defaults.less";
+
+.hgrid .inner-wrap {
+    @gridImage: "../img/theme/magic-number-@{magicNumber}.png";
+    #desinax-hgrid.showGrid(@gridImage);
+}
+
+body {
+    #desinax-hgrid.font(@fontSizeBody);
+    // font: 100.01%/1 @fontFamilyBody;
+}
+
+// Activate grid and affect all typographic elements
+#desinax-hgrid.activateDefaultTypography();

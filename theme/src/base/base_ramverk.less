@@ -1,0 +1,44 @@
+/**
+ * Base style to affect HTML elements on a general scale.
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+    // background-color: @bgColorHtml;
+}
+
+body {
+    color: @darkGrey;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    border-bottom: 1px solid @lightGreen;
+}
+
+a {
+    color: @darkGrey;
+    text-decoration-line: underline;
+    text-decoration-color: @lightGreen;
+}
+
+.figure {
+    max-width: 100%;
+    margin: 0;
+    img {
+        max-width: 100%;
+    }
+}
+
+.fab,
+.fas {
+    color: @lightGreen;
+}

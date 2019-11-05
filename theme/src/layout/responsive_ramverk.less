@@ -1,0 +1,35 @@
+/**
+ * Layout for responsive style through media queries.
+ */
+
+@media screen and (max-width: 1500px) {
+    .site-logo {
+        display: none;
+    }
+
+    .site-logo-text-icon {
+        display: inline;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .region-header-col-1 {
+        #desinax-vgrid.column(@columns / 4 * 3);
+    }
+
+    .region-header-col-2 {
+        display: none;
+    }
+
+    .region-header-col-3 {
+        #desinax-vgrid.column(@columns / 4);
+    }
+
+    .region-sidebar-right,
+    .region-sidebar-left,
+    .has-sidebar-left,
+    .has-sidebar-right,
+    .footer-column {
+        #desinax-vgrid.column(@columns);
+    }
+}

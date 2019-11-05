@@ -5096,7 +5096,7 @@ html.vgrid .inner-wrap.inner-wrap-footer {
      */
 }
 html.hgrid .inner-wrap {
-  background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 23px, #f4e3d7 23px, #f4e3d7 24px);
+  background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 23px, #f5b7ac 23px, #f5b7ac 24px);
 }
 /**
  * Figure and figcaption mixins, namespace #desinax-figure. You must enable

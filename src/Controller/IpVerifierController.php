@@ -15,13 +15,27 @@ class IpVerifierController implements ContainerInjectableInterface
 
     /**
      * This is the index method action, it handles:
-     * ANY METHOD mountpoint
-     * ANY METHOD mountpoint/
-     * ANY METHOD mountpoint/index
      *
-     * @return string
+     * @return object
      */
-    public function indexAction() : string
+    public function indexAction() : object
+    {
+        $page = $this->di->get("page");
+
+        $ip = $this->di->request->getGet("ip");
+        $res = $this->validateActionGet();
+
+        $data = [
+            "ip" => $ip,
+            "res" => $res
+        ];
+
+        $page->add("ipverifier/main", $data);
+
+        return $page->render(); 
+    }
+
+    public function validateActionGet() : string
     {
         $ip = $this->di->request->getGet("ip");
         $valid = filter_var($ip, FILTER_VALIDATE_IP) ? "true" : "false";
@@ -35,28 +49,4 @@ class IpVerifierController implements ContainerInjectableInterface
         }
         return "ip: ".$ip.", valid: ".$valid.", protocol: ".$protocol.", domain: ".$domain;
     }
-
-    /**
-     * this returns a json
-     */
-    public function jsonActionGet() : array
-    {
-        $ip = $this->di->request->getGet("ip");
-        $valid = filter_var($ip, FILTER_VALIDATE_IP) ? "true" : "false";
-        if ($valid == "true") {
-            $protocol = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? "IPv4" : "IPv6";
-            $getHost = gethostbyaddr($ip);
-            $domain = ($getHost == $ip) ? "none" : $getHost;
-        } else {
-            $protocol = "false";
-            $domain = "false";
-        }
-        return [[
-            "ip" => $ip,
-            "valid" => $valid,
-            "protocol" => $protocol,
-            "domain" => $domain
-        ]];
-    }
-
 }

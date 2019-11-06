@@ -70,5 +70,4 @@ class IpVerifierToJsonControllerTest extends TestCase
         $this->assertArrayHasKey("domain", $res[0]);
         $this->assertEquals("dns.google", $res[0]["domain"]);
     }
-
 }

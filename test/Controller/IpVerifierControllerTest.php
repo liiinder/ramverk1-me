@@ -45,5 +45,4 @@ class IpVerifierControllerTest extends TestCase
         $this->assertEquals("ip: 2001:4860:4860::8888, valid: true, protocol: IPv6, domain: dns.google", $res);
 
     }
-
 }

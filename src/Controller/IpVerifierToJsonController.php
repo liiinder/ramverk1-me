@@ -9,7 +9,7 @@ use Anax\Commons\ContainerInjectableTrait;
  * A controller that handles a get request
  * and returns if its a valid ip or not.
  */
-class IpVerifierToJosonController implements ContainerInjectableInterface
+class IpVerifierToJsonController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -32,5 +32,4 @@ class IpVerifierToJosonController implements ContainerInjectableInterface
             "domain" => $domain
         ]];
     }
-
 }

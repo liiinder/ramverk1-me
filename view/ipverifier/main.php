@@ -4,8 +4,8 @@ namespace Anax\View;
 
 ?>
 <article>
-    <h2>Kolla om en input är en verifierad IP-address.</h2>
-    <form class="game">
+    <h2>Verifiera en IP-address.</h2>
+    <form>
         <input type="text" name="ip" value="<?= $ip ?>">
         <input type="submit" value="check">
     </form>

@@ -32,7 +32,7 @@ class IpVerifierController implements ContainerInjectableInterface
 
         $page->add("ipverifier/main", $data);
 
-        return $page->render(); 
+        return $page->render();
     }
 
     public function validateActionGet() : string

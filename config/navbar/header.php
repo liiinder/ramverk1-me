@@ -48,5 +48,10 @@ return [
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",
         ],
+        [
+            "text" => "IP-verifier",
+            "url" => "ipverifier",
+            "title" => "Verktyg för att verifiera ip",
+        ]
     ],
 ];

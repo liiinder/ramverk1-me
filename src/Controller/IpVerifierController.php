@@ -20,6 +20,7 @@ class IpVerifierController implements ContainerInjectableInterface
      */
     public function indexAction() : object
     {
+        $title = "Ipverifier";
         $page = $this->di->get("page");
 
         $ip = $this->di->request->getGet("ip");
@@ -32,7 +33,9 @@ class IpVerifierController implements ContainerInjectableInterface
 
         $page->add("ipverifier/main", $data);
 
-        return $page->render();
+        return $page->render([
+            "title" => $title,
+        ]);
     }
 
     public function validateActionGet() : string

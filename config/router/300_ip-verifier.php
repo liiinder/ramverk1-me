@@ -9,5 +9,10 @@ return [
             "mount" => "ipverifier",
             "handler" => "\Linder\Controller\IpVerifierController",
         ],
+        [
+            "info" => "Ip Verifier to json.",
+            "mount" => "iptojson",
+            "handler" => "\Linder\Controller\IpVerifierToJsonController",
+        ],
     ]
 ];

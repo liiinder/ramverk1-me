@@ -25,9 +25,6 @@ class IpVerifierToJsonControllerTest extends TestCase
         // Setup the controller
         $controller = new IpVerifierToJsonController();
         $controller->setDI($di);
-        // $controller->initialize();
-
-        $di->set("request", "\Anax\Request\Request");
 
         // test a valid IPv4 (dbwebb)
         $di->get("request")->setGet("ip", "194.47.150.9");

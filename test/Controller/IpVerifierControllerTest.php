@@ -30,12 +30,11 @@ class IpVerifierControllerTest extends TestCase
         $this->di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
 
         // View helpers uses the global $di so it needs its value
-        // $di = $this->di;
+        $di = $this->di;
 
         // Setup the controller
         $this->controller = new IpVerifierController();
         $this->controller->setDI($this->di);
-        $this->di->set("request", "\Anax\Request\Request");
     }
 
     /**
@@ -52,6 +51,7 @@ class IpVerifierControllerTest extends TestCase
         // Check that the body contains some known words
         $body = $res->getBody();
         $this->assertContains("Verifiera en IP-address.", $body);
+        $this->assertContains("ip: 194.47.150.9,", $body);
     }
 
     /**

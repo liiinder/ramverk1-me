@@ -11,6 +11,16 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <exclude>
+              <file>src/Controller/DevelopmentController.php</file>
+              <file>src/Controller/ErrorHandlerController.php</file>
+              <file>src/Controller/FlatFileContentController.php</file>
+              <file>src/Controller/SampleController.php</file>
+              <file>src/Controller/SampleJsonController.php</file>
+              <file>src/Navigation/Navbar.php</file>
+              <file>src/Page/Page.php</file>
+              <file>src/StyleChooser/StyleChooserController.php</file>
+            </exclude>
         </whitelist>
     </filter>
 

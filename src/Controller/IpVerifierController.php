@@ -4,6 +4,7 @@ namespace Linder\Controller;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
+use Linder\Model\IpVerifier;
 
 /**
  * A controller that handles a get request
@@ -24,13 +25,16 @@ class IpVerifierController implements ContainerInjectableInterface
         $page = $this->di->get("page");
 
         $ip = $this->di->request->getGet("ip");
-        $res = $this->validateActionGet();
+        // $res = IpVerifier::getJson($ip);
+        $ipverifier = new \Linder\Model\IpVerifier;
+        $res = $ipverifier->getJson($ip);
 
         $data = [
             "ip" => $ip,
             "res" => $res
         ];
 
+        $page->add("ipverifier/debug", $data);
         $page->add("ipverifier/main", $data);
 
         return $page->render([
@@ -38,18 +42,4 @@ class IpVerifierController implements ContainerInjectableInterface
         ]);
     }
 
-    public function validateActionGet() : string
-    {
-        $ip = $this->di->request->getGet("ip");
-        $valid = filter_var($ip, FILTER_VALIDATE_IP) ? "true" : "false";
-        if ($valid == "true") {
-            $protocol = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? "IPv4" : "IPv6";
-            $getHost = gethostbyaddr($ip);
-            $domain = ($getHost == $ip) ? "none" : $getHost;
-        } else {
-            $protocol = "false";
-            $domain = "false";
-        }
-        return "ip: ".$ip.", valid: ".$valid.", protocol: ".$protocol.", domain: ".$domain;
-    }
 }

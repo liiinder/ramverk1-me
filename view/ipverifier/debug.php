@@ -5,6 +5,8 @@ namespace Anax\View;
 ?>
 <hr>
 <pre>
+RES
+<?= var_dump($res) ?>
 SESSION
 <?= var_dump($_SESSION) ?>
 POST

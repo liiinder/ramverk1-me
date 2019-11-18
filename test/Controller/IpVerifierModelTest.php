@@ -2,7 +2,6 @@
 
 namespace Linder\Model;
 
-use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
 
 /**

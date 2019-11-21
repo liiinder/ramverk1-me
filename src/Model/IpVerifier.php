@@ -48,8 +48,8 @@ class IpVerifier
     {
         global $di;
 
-        $config = $di->get("configuration")->load("ipstack");
-        $ipstack = ($di->get("request")->getGet("test")) ? $config["config"]["test"] : $config["config"]["ipstack"];
+        $config = $di->get("configuration")->load("api.php");
+        $ipstack = ($di->get("request")->getGet("test")) ? $config["config"]["testIpstack"] : $config["config"]["ipstack"];
         $url = $ipstack["url"] . $ip . $ipstack["key"];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

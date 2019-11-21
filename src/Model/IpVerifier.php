@@ -50,11 +50,11 @@ class IpVerifier
 
         $config = $di->get("configuration")->load("api.php");
         $ipstack = ($di->get("request")->getGet("test")) ? $config["config"]["testIpstack"] : $config["config"]["ipstack"];
-        $url = $ipstack["url"] . $ip . $ipstack["key"];
+        $url = $ipstack["url"] . $ip;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $url . $ipstack["key"]);
         $data = curl_exec($ch);
         curl_close($ch);
         $res = json_decode($data, true);

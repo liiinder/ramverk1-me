@@ -10,17 +10,11 @@ namespace Anax\View;
         <input type="submit" value="check">
     </form>
     <p>
-        Valid: <?= $valid ?><br>
         Protocol: <?= $protocol ?><br>
-        Domain: <?= $domain ?>
+        Domain: <?= $domain ?><br>
+        Latitude: <?= $lat ?><br>
+        Longitude: <?= $lon ?><br>
+        Country: <?= $country ?><br>
+        City: <?= $city ?>
     </p>
-
-    <!-- <h4>Denna returnerar Json</h4>
-    <form action="iptojson">
-        <input type="text" name="ip" value="<?= $ip ?>">
-        <input type="submit" value="check">
-    </form>
-    <p>
-        Eller använd routen baseurl/htdocs/iptojson?ip= , istället för ipverifier
-    </p> -->
 </article>

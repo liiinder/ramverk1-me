@@ -10,7 +10,7 @@ use Linder\Model\IpVerifier;
  * A controller that handles a get request
  * uses a model and returns a Json.
  */
-class IpVerifierToJsonController implements ContainerInjectableInterface
+class IpVerifierMockController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -19,7 +19,7 @@ class IpVerifierToJsonController implements ContainerInjectableInterface
         $ip = $this->di->request->getGet("ip") ?: $this->di->request->getServer("REMOTE_ADDR");
         $ipverifier = new IpVerifier();
         return [
-            $ipverifier->getJson($ip)
+            $ipverifier->oldGetJson($ip)
         ];
     }
 }

@@ -14,5 +14,10 @@ return [
             "mount" => "iptojson",
             "handler" => "\Linder\Controller\IpVerifierToJsonController",
         ],
+        [
+            "info" => "Ip Mock.",
+            "mount" => "ipmock",
+            "handler" => "\Linder\Controller\IpVerifierMockController",
+        ],
     ]
 ];

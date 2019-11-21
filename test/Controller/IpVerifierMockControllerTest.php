@@ -5,9 +5,9 @@ use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test the IpVerifierToJson class.
+ * Test the IpVerifierMock class.
  */
-class IpVerifierToJsonControllerTest extends TestCase
+class IpVerifierMockControllerTest extends TestCase
 {
     /**
      * Test the route "index".
@@ -25,7 +25,7 @@ class IpVerifierToJsonControllerTest extends TestCase
         $di->get("request")->setGet("test", "true");
 
         // Setup the controller
-        $controller = new IpVerifierToJsonController();
+        $controller = new IpVerifierMockController();
         $controller->setDI($di);
 
         // test a valid IPv4 (dbwebb)
@@ -62,6 +62,5 @@ class IpVerifierToJsonControllerTest extends TestCase
         $this->assertEquals("ipv6", $res[0]["type"]);
         $this->assertArrayHasKey("domain", $res[0]);
         $this->assertEquals("dns.google", $res[0]["domain"]);
-        $this->assertEquals("http://localhost:8080/ramverk1/me/redovisa/htdocs/ipmock?ip=2001:4860:4860::8888", $res[0]["url"]);
     }
 }

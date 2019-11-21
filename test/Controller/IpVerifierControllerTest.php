@@ -42,6 +42,9 @@ class IpVerifierControllerTest extends TestCase
      */
     public function testIndexAction()
     {
+        // Set the API to Mock
+        $this->di->get("request")->setGet("test", "true");
+
         // Test default IP
         $this->di->get("request")->setServer("REMOTE_ADDR", "8.8.8.8");
         $res = $this->controller->indexAction();
@@ -50,23 +53,19 @@ class IpVerifierControllerTest extends TestCase
         $body = $res->getBody();
         $this->assertContains('<input type="text" name="ip" value="8.8.8.8">', $body);
         $this->assertContains("Verifiera en IP-address.", $body);
-        $this->assertContains("Valid: true", $body);
-
-        // Test the return type 
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-
-
-
+        
         // test IP with GET
         $this->di->get("request")->setGet("ip", "194.47.150.9");
         $res = $this->controller->indexAction();
-
+        
         // Check that the body contains some known words
         $body = $res->getBody();
         $this->assertContains("Verifiera en IP-address.", $body);
         $this->assertContains('<input type="text" name="ip" value="194.47.150.9">', $body);
-    }
 
+        // Test the return type
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
 }

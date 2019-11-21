@@ -13,24 +13,54 @@ class IpVerifier
      *
      * @return array
      */
-    public function getJson($ip) : array
+    public function oldGetJson($ip) : array
     {
-        // $ip = $this->di->request->getGet("ip");
         $valid = filter_var($ip, FILTER_VALIDATE_IP) ? "true" : "false";
         if ($valid == "true") {
-            $protocol = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? "IPv4" : "IPv6";
+            $protocol = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? "ipv4" : "ipv6";
             $getHost = gethostbyaddr($ip);
-            $domain = ($getHost == $ip) ? "none" : $getHost;
+            $domain = ($getHost == $ip) ? null : $getHost;
         } else {
-            $protocol = "false";
-            $domain = "false";
+            $protocol = null;
+            $domain = null;
         }
         return [
             "ip" => $ip,
-            "valid" => $valid,
-            "protocol" => $protocol,
-            "domain" => $domain
+            "type" => $protocol,
+            "domain" => $domain,
+            "latitude" => null,
+            "longitude" => null,
+            "country_name" => null,
+            "city" => null
         ];
     }
 
+    /**
+     * This method takes one argument:
+     * A string that we are going to check if its a valid ip-adress.
+     * Returning an json with some information.
+     *
+     * @param string $value
+     *
+     * @return array
+     */
+    public function getJson($ip) : array
+    {
+        global $di;
+
+        $config = $di->get("configuration")->load("ipstack");
+        $ipstack = ($di->get("request")->getGet("test")) ? $config["config"]["test"] : $config["config"]["ipstack"];
+        $url = $ipstack["url"] . $ip . $ipstack["key"];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        $res = json_decode($data, true);
+        $res["domain"] = filter_var($ip, FILTER_VALIDATE_IP) ? gethostbyaddr($ip) : null;
+        $res["url"] = $url;
+
+        return $res;
+    }
 }

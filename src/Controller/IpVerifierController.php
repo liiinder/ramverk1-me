@@ -25,23 +25,23 @@ class IpVerifierController implements ContainerInjectableInterface
 
         $ip = $this->di->request->getGet("ip") ?: $this->di->request->getServer("REMOTE_ADDR");
 
-        // $res = IpVerifier::getJson($ip);
-        $ipverifier = new \Linder\Model\IpVerifier;
+        $ipverifier = new IpVerifier();
         $res = $ipverifier->getJson($ip);
 
         $data = [
             "ip" => $ip,
             "domain" => $res["domain"],
-            "protocol" => $res["protocol"],
-            "valid" => $res["valid"]
+            "protocol" => $res["type"],
+            "lat" => $res["latitude"],
+            "lon" => $res["longitude"],
+            "country" => $res["country_name"],
+            "city" => $res["city"]
         ];
 
         $page->add("ipverifier/main", $data);
-        // $page->add("ipverifier/debug", $data);
 
         return $page->render([
             "title" => "Ipverifier",
         ]);
     }
-
 }

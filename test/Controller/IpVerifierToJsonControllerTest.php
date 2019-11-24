@@ -37,7 +37,7 @@ class IpVerifierToJsonControllerTest extends TestCase
         $this->assertArrayHasKey("type", $res[0]);
         $this->assertEquals("ipv4", $res[0]["type"]);
         $this->assertArrayHasKey("domain", $res[0]);
-        $this->assertEquals("dbwebb.tekproj.bth.se", $res[0]["domain"]);
+        $this->assertContains("dbwebb", $res[0]["domain"]);
 
         // testing a false ip
         $ip = "ThisNoIP";

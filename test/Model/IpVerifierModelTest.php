@@ -49,7 +49,7 @@ class IpVerifierModelTest extends TestCase
         $this->assertArrayHasKey("type", $res);
         $this->assertEquals("ipv4", $res["type"]);
         $this->assertArrayHasKey("domain", $res);
-        $this->assertEquals("dbwebb.tekproj.bth.se", $res["domain"]);
+        $this->assertContains("dbwebb", $res["domain"]);
 
         // testing a false ip
         $ip = "ThisNoIP";

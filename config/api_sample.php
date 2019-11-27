@@ -13,5 +13,13 @@ return [
     "testIpstack" => [
         "url" => "http://localhost:8080/ramverk1/me/redovisa/htdocs/ipmock?ip=",
         "key" => ""
+    ],
+    // Darksky using it like htis -> url . lat , lon
+    "darksky" => [
+        "url" => "https://api.darksky.net/forecast/[xxxxxxxxxxx]/"
+    ],
+    // https://opencagedata.com/tutorials/geocode-in-php
+    "opencage" => [
+        "key" => "[xxxxxxxxxxxxxx]"
     ]
 ];

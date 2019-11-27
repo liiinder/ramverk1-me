@@ -5822,3 +5822,9 @@ a {
   font-display: swap;
   src: local('Crimson Text Regular'), local('CrimsonText-Regular'), url(https://fonts.gstatic.com/s/crimsontext/v10/wlp2gwHKFkZgtmSR3NB0oRJfbwhW.ttf) format('truetype');
 }
+#map {
+  margin: 1em 0;
+  height: 550px;
+  width: 700px;
+  background-color: #eee;
+}

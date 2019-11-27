@@ -30,6 +30,11 @@ return [
                         "url" => "redovisning/kmom02",
                         "title" => "Redovisning för kmom02.",
                     ],
+                    [
+                        "text" => "Kmom03",
+                        "url" => "redovisning/kmom03",
+                        "title" => "Redovisning för kmom03.",
+                    ],
                 ],
             ],
         ],
@@ -52,6 +57,11 @@ return [
             "text" => "IP-verifier",
             "url" => "ipverifier",
             "title" => "Verktyg för att verifiera ip",
+        ],
+        [
+            "text" => "Geocode",
+            "url" => "geocode",
+            "title" => "Verktyg för att söka väder för en plats"
         ]
     ],
 ];

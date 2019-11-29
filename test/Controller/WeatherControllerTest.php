@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the SampleController.
  */
-class IpVerifierControllerTest extends TestCase
+class WeatherControllerTest extends TestCase
 {
 
     // Create the di container.
@@ -30,7 +30,7 @@ class IpVerifierControllerTest extends TestCase
         $di = $this->di;
 
         // Setup the controller
-        $this->controller = new IpVerifierController();
+        $this->controller = new WeatherController();
         $this->controller->setDI($this->di);
     }
 
@@ -42,24 +42,24 @@ class IpVerifierControllerTest extends TestCase
         // Set the API to Mock
         $this->di->get("session")->set("test", "true");
 
-        // Test default IP
-        $this->di->get("request")->setServer("REMOTE_ADDR", "8.8.8.8");
+        // Test an IP search
+        $this->di->get("request")->setGet("search", "8.8.8.8");
+        $this->di->get("request")->setGet("type", "past");
         $res = $this->controller->indexAction();
-
-        // Check that the body contains some known words
         $body = $res->getBody();
-        $this->assertContains('<input type="text" name="ip" value="8.8.8.8">', $body);
-        $this->assertContains("Verifiera en IP-address.", $body);
-        
-        // test IP with GET
-        $this->di->get("request")->setGet("ip", "194.47.150.9");
+        $this->assertContains('Molnigt under dagen.', $body);
+
+        // Test a city and coming weather
+        $this->di->get("request")->setGet("type", "coming");
+        $this->di->get("request")->setGet("search", "Stockholm");
         $res = $this->controller->indexAction();
         
         // Check that the body contains some known words
+        // Doesnt really matter as we dont use the real API
         $body = $res->getBody();
-        $this->assertContains("Verifiera en IP-address.", $body);
-        $this->assertContains('<input type="text" name="ip" value="194.47.150.9">', $body);
-
+        // checking so it got the summary from the mock api
+        $this->assertContains('Duggregn under dagen.', $body);
+        
         // Test the return type
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);

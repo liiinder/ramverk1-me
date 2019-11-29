@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Anax\DI\DIFactoryConfig;
 
 /**
- * Test the IpVerifierToJson class.
+ * Test the DarkSky class.
  */
-class IpVerifierModelTest extends TestCase
+class DarkSkyModelTest extends TestCase
 {
     protected $di;
 
@@ -33,13 +33,13 @@ class IpVerifierModelTest extends TestCase
     /**
      * Test the route "index".
      */
-    public function testIpVerifier()
+    public function testDarkSky()
     {
         // Setup the verifier class
         $ipverifier = new IpVerifier();
         
         // Set $_GET to test so the model are running the mock API
-        $this->di->get("session")->set("test", "true");
+        $this->di->get("request")->setGet("test", "true");
 
         // test a valid IPv4 (dbwebb)
         $res = $ipverifier->getJson("194.47.150.9");

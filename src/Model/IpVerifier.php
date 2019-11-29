@@ -28,8 +28,8 @@ class IpVerifier
             "ip" => $ip,
             "type" => $protocol,
             "domain" => $domain,
-            "latitude" => null,
-            "longitude" => null,
+            "latitude" => 57.70887,
+            "longitude" => 11.97456,
             "country_name" => null,
             "city" => null
         ];
@@ -49,7 +49,7 @@ class IpVerifier
         global $di;
 
         $config = $di->get("configuration")->load("api.php");
-        $ipstack = ($di->get("request")->getGet("test")) ? $config["config"]["testIpstack"] : $config["config"]["ipstack"];
+        $ipstack = ($di->get("session")->has("test")) ? $config["config"]["testIpstack"] : $config["config"]["ipstack"];
         $url = $ipstack["url"] . $ip;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

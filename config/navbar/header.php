@@ -59,9 +59,14 @@ return [
             "title" => "Verktyg för att verifiera ip",
         ],
         [
-            "text" => "Geocode",
-            "url" => "geocode",
+            "text" => "Weather info",
+            "url" => "weather",
             "title" => "Verktyg för att söka väder för en plats"
+        ],
+        [
+            "text" => "API doc",
+            "url" => "api",
+            "title" => "API documentation"
         ]
     ],
 ];

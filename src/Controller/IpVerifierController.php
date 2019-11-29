@@ -25,8 +25,7 @@ class IpVerifierController implements ContainerInjectableInterface
 
         $ip = $this->di->request->getGet("ip") ?: $this->di->request->getServer("REMOTE_ADDR");
 
-        $ipverifier = new IpVerifier();
-        $res = $ipverifier->getJson($ip);
+        $res = $this->di->get("ipverifier")->getJson($ip);
 
         $data = [
             "ip" => $ip,

@@ -17,9 +17,8 @@ class APIMockController implements ContainerInjectableInterface
     public function indexAction() : array
     {
         $ip = $this->di->request->getGet("ip") ?: $this->di->request->getServer("REMOTE_ADDR");
-        $ipverifier = new IpVerifier();
         return [
-            $ipverifier->oldGetJson($ip)
+            $this->di->get("ipverifier")->oldGetJson($ip)
         ];
     }
 

@@ -25,8 +25,7 @@ class WeatherAPIController implements ContainerInjectableInterface
         $search = $this->di->get("request")->getGet("search");
 
         if (filter_var($search, FILTER_VALIDATE_IP)) {
-            $ipverifier = new \Linder\Model\IpVerifier();
-            $res = $ipverifier->getJson($search);
+            $res = $this->di->get("ipverifier")->getJson($search);
             $latlon = ((!$res["latitude"]) || (!$res["longitude"])) ? "" : $res["latitude"] . "," . $res["longitude"];
         } else if ($search) {
             $this->di->get("configuration")->load("api.php");

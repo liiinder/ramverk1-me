@@ -30,8 +30,7 @@ class WeatherController implements ContainerInjectableInterface
         $default = "57.708870,11.974560";
         
         if (filter_var($search, FILTER_VALIDATE_IP)) {
-            $ipverifier = new \Linder\Model\IpVerifier();
-            $res = $ipverifier->getJson($search);
+            $res = $this->di->get("ipverifier")->getJson($search);
             $res = ((!$res["latitude"]) || (!$res["longitude"])) ? "" : $res["latitude"] . "," . $res["longitude"];
         } else {
             $config = $this->di->get("configuration")->load("api.php");
@@ -67,7 +66,6 @@ class WeatherController implements ContainerInjectableInterface
         ];
 
         $page->add("weather/main", $data);
-        // $page->add("weather/debug", $data);
 
         return $page->render([
             "title" => "Weather",

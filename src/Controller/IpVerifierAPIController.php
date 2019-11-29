@@ -10,7 +10,7 @@ use Linder\Model\IpVerifier;
  * A controller that handles a get request
  * uses a model and returns a Json.
  */
-class IpVerifierToJsonController implements ContainerInjectableInterface
+class IpVerifierAPIController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 

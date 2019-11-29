@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the IpVerifierToJson class.
  */
-class IpVerifierToJsonControllerTest extends TestCase
+class IpVerifierAPIControllerTest extends TestCase
 {
 
     // Create the di container.
@@ -29,7 +29,7 @@ class IpVerifierToJsonControllerTest extends TestCase
         $di = $this->di;
 
         // Setup the controller
-        $this->controller = new IpVerifierToJsonController();
+        $this->controller = new IpVerifierAPIController();
         $this->controller->setDI($this->di);
     }
     /**

@@ -11,8 +11,8 @@ return [
         ],
         [
             "info" => "Ip Verifier to json.",
-            "mount" => "iptojson",
-            "handler" => "\Linder\Controller\IpVerifierToJsonController",
+            "mount" => "ipapi",
+            "handler" => "\Linder\Controller\IpVerifierAPIController",
         ]
     ]
 ];

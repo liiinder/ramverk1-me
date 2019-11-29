@@ -36,6 +36,14 @@ class APIMockControllerTest extends TestCase
         $this->controller = new APIMockController();
         $this->controller->setDI($this->di);
     }
+
+    /**
+     * Removing the session test after testing is done.
+     */
+    protected function tearDown()
+    {
+        $this->di->get("session")->delete("test");
+    }
     
     /**
      * Test the route "index".

@@ -17,17 +17,4 @@ namespace Anax\View;
         Country: <?= $country ?><br>
         City: <?= $city ?>
     </p>
-    <h2>Json API</h2>
-    <p>
-        To use the API you send a request to the iptojson route with a get ?ip=x.x.x.x.<br>
-        See the following examples.
-    </p>
-    <form action="iptojson">
-        <input type="checkbox" name="test" id="test">
-        <label for="test">Use the Mock server?</label>
-        <br>
-        <input type="submit" name="ip" value="8.8.8.8">
-        <input type="submit" name="ip" value="::1">
-        <input type="submit" name="ip" value="4.4.4.4">
-    </form>
 </article>

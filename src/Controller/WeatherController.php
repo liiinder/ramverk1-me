@@ -22,8 +22,6 @@ class WeatherController implements ContainerInjectableInterface
      */
     public function indexAction() : object
     {
-        // $this->di->get("session")->set("test", "true");
-
         $page = $this->di->get("page");
 
         $search = $this->di->get("request")->getGet("search");

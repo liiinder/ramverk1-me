@@ -35,6 +35,14 @@ class WeatherControllerTest extends TestCase
     }
 
     /**
+     * Removing the session test after testing is done.
+     */
+    protected function tearDown()
+    {
+        $this->di->get("session")->delete("test");
+    }
+
+    /**
      * Test the indexAction
      */
     public function testIndexAction()

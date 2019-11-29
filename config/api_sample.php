@@ -15,11 +15,9 @@ return [
         "key" => ""
     ],
     // Darksky using it like htis -> url . lat , lon
-    "darksky" => [
-        "url" => "https://api.darksky.net/forecast/[xxxxxxxxxxx]/"
-    ],
+    "darksky" => "https://api.darksky.net/forecast/[xxxxxxxxxxx]/",
+    "darkskytest" => "http://localhost:8080/ramverk1/me/redovisa/htdocs/apimock/darkskymock?",
+
     // https://opencagedata.com/tutorials/geocode-in-php
-    "opencage" => [
-        "key" => "[xxxxxxxxxxxxxx]"
-    ]
+    "opencage" => "[xxxxxxxxxxxxxx]"
 ];

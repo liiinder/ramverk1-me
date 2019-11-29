@@ -28,7 +28,7 @@ class WeatherAPIController implements ContainerInjectableInterface
             $res = $this->di->get("ipverifier")->getJson($search);
             $latlon = ((!$res["latitude"]) || (!$res["longitude"])) ? "" : $res["latitude"] . "," . $res["longitude"];
         } else if ($search) {
-            $this->di->get("configuration")->load("api.php");
+            $config = $this->di->get("configuration")->load("api.php");
             $geocoder = $this->di->get("session")->has("test") ? new \Linder\Mock\GeocoderMock() : new \OpenCage\Geocoder\Geocoder($config["config"]["opencage"]);
             $coords = new Coordinates($geocoder);
             $latlon = $coords->getCoordinates($search);

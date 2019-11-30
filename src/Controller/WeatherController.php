@@ -32,7 +32,7 @@ class WeatherController implements ContainerInjectableInterface
             $res = ((!$res["latitude"]) || (!$res["longitude"])) ? "" : $res["latitude"] . "," . $res["longitude"];
         } else {
             $config = $this->di->get("configuration")->load("api.php");
-            $geocoder = $this->di->get("session")->has("test") ? new \Linder\Mock\GeocoderMock() : new \OpenCage\Geocoder\Geocoder($config["config"]["opencage"]);
+            $geocoder = $this->di->get("geocoder");
             $coords = new Coordinates($geocoder);
             $res = $coords->getCoordinates($search ?? $default);
         }
@@ -40,7 +40,7 @@ class WeatherController implements ContainerInjectableInterface
         $error = ($res == "") ? 'Din sökning "' . $search . '" gav inget resultat, visar Göteborg istället.' : "";
         $latlon = ($res == "") ? $default : $res;
 
-        $darksky = new \Linder\Model\DarkSky($this->di);
+        $darksky = $this->di->get("darksky");
         $type = $this->di->get("request")->getGet("type");
         if ($type == "past") {
             $res = $darksky->getWeatherPast($latlon);

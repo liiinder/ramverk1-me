@@ -26,6 +26,12 @@ class WeatherControllerTest extends TestCase
         $this->di = new DIFactoryConfig();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
 
+        // Swap out Config directory
+        $this->di->get("configuration")->setBaseDirectories([ANAX_INSTALL_PATH . "/test/config/"]);
+
+        // Use geocoder mock instead of opencage
+        $this->di->setShared("geocoder", "\Linder\Mock\GeocoderMock");
+
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
 
@@ -35,21 +41,10 @@ class WeatherControllerTest extends TestCase
     }
 
     /**
-     * Removing the session test after testing is done.
-     */
-    protected function tearDown()
-    {
-        $this->di->get("session")->delete("test");
-    }
-
-    /**
      * Test the indexAction
      */
     public function testIndexAction()
     {
-        // Set the API to Mock
-        $this->di->get("session")->set("test", "true");
-
         // Test an IP search
         $this->di->get("request")->setGet("search", "8.8.8.8");
         $this->di->get("request")->setGet("type", "past");

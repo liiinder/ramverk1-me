@@ -4,35 +4,19 @@ namespace Linder\Model;
 
 class IpVerifier
 {
+    private $di;
+    private $api;
+
     /**
-     * This method takes one argument:
-     * A string that we are going to check if its a valid ip-adress.
-     * Returning an json with some information.
+     * Constructor, allow for $di to be injected.
      *
-     * @param string $value
-     *
-     * @return array
+     * @param \Anax\DI\DI a dependency/service container
      */
-    public function oldGetJson($ip) : array
+    public function __construct(\Anax\DI\DI $di)
     {
-        $valid = filter_var($ip, FILTER_VALIDATE_IP) ? "true" : "false";
-        if ($valid == "true") {
-            $protocol = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? "ipv4" : "ipv6";
-            $getHost = gethostbyaddr($ip);
-            $domain = ($getHost == $ip) ? null : $getHost;
-        } else {
-            $protocol = null;
-            $domain = null;
-        }
-        return [
-            "ip" => $ip,
-            "type" => $protocol,
-            "domain" => $domain,
-            "latitude" => 57.70887,
-            "longitude" => 11.97456,
-            "country_name" => null,
-            "city" => null
-        ];
+        $this->di = $di;
+        $config = $this->di->get("configuration")->load("api.php");
+        $this->api = $config["config"]["ipstack"];
     }
 
     /**
@@ -46,15 +30,11 @@ class IpVerifier
      */
     public function getJson($ip) : array
     {
-        global $di;
-
-        $config = $di->get("configuration")->load("api.php");
-        $ipstack = ($di->get("session")->has("test")) ? $config["config"]["testIpstack"] : $config["config"]["ipstack"];
-        $url = $ipstack["url"] . $ip;
+        $url = $this->api["url"] . $ip;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_URL, $url . $ipstack["key"]);
+        curl_setopt($ch, CURLOPT_URL, $url . $this->api["key"]);
         $data = curl_exec($ch);
         curl_close($ch);
         $res = json_decode($data, true);

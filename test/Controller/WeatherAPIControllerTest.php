@@ -2,7 +2,7 @@
 
 namespace Linder\Controller;
 
-use Anax\DI\DIFactoryConfig;
+use Anax\DI\DIMagic;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,8 +23,14 @@ class WeatherAPIControllerTest extends TestCase
         global $di;
 
         // Setup di
-        $this->di = new DIFactoryConfig();
+        $this->di = new DIMagic();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
+
+        // Swap out Config directory
+        $this->di->get("configuration")->setBaseDirectories([ANAX_INSTALL_PATH . "/test/config/"]);
+
+        // Use geocoder mock instead of opencage
+        $this->di->setShared("geocoder", "\Linder\Mock\GeocoderMock");
 
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
@@ -35,21 +41,10 @@ class WeatherAPIControllerTest extends TestCase
     }
 
     /**
-     * Removing the session test after testing is done.
-     */
-    protected function tearDown()
-    {
-        $this->di->get("session")->delete("test");
-    }
-
-    /**
      * Test the indexAction
      */
     public function testIndexAction()
     {
-        // Set the API to Mock
-        $this->di->get("session")->set("test", "true");
-
         // Test without a search
         $res = $this->controller->indexAction();
         $this->assertArrayHasKey("code", $res[0]);

@@ -5,10 +5,12 @@
 return [
     // Services to add to the container.
     "services" => [
-        "ipverifier" => [
+        "geocoder" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Linder\Model\IpVerifier($this);
+                $cfg = $this->get("configuration");
+                $config = $cfg->load("api.php");
+                $obj = new \OpenCage\Geocoder\Geocoder($config["config"]["opencage"]);
                 return $obj;
             }
         ],

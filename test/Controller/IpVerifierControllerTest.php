@@ -26,6 +26,9 @@ class IpVerifierControllerTest extends TestCase
         $this->di = new DIFactoryConfig();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
 
+        // Mock ipverifier
+        $this->di->setShared("ipverifier", "\Linder\Mock\IpVerifierMock");
+
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
 

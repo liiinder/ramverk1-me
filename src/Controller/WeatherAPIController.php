@@ -28,13 +28,12 @@ class WeatherAPIController implements ContainerInjectableInterface
             $res = $this->di->get("ipverifier")->getJson($search);
             $latlon = ((!$res["latitude"]) || (!$res["longitude"])) ? "" : $res["latitude"] . "," . $res["longitude"];
         } else if ($search) {
-            $config = $this->di->get("configuration")->load("api.php");
-            $geocoder = $this->di->get("session")->has("test") ? new \Linder\Mock\GeocoderMock() : new \OpenCage\Geocoder\Geocoder($config["config"]["opencage"]);
+            $geocoder = $this->di->get("geocoder");
             $coords = new Coordinates($geocoder);
             $latlon = $coords->getCoordinates($search);
         }
         if (($search) && ($latlon != "")) {
-            $darksky = new \Linder\Model\DarkSky($this->di);
+            $darksky = $this->di->get("darksky");
             $type = $this->di->get("request")->getGet("type");
             if ($type == "past") {
                 $res = $darksky->getWeatherPast($latlon);

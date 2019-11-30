@@ -5,10 +5,11 @@
 return [
     // Services to add to the container.
     "services" => [
-        "ipverifier" => [
+        "request" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Linder\Model\IpVerifier($this);
+                $obj = new \Anax\Request\Request();
+                $obj->init();
                 return $obj;
             }
         ],

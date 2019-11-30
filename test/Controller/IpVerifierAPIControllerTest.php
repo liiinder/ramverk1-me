@@ -25,6 +25,9 @@ class IpVerifierAPIControllerTest extends TestCase
         $this->di = new DIFactoryConfig();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
 
+        // Mock Ipverifier
+        $this->di->setShared("ipverifier", "\Linder\Mock\IpVerifierMock");
+
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
 
@@ -34,22 +37,10 @@ class IpVerifierAPIControllerTest extends TestCase
     }
 
     /**
-     * Removing the session test after testing is done.
-     */
-    protected function tearDown()
-    {
-        $this->di->get("session")->delete("test");
-    }
-
-    /**
      * Test the route "index".
      */
     public function testIndexAction()
     {
-        // Set the API to Mock
-        $this->di->get("session")->set("test", "true");
-
-
         // test a valid IPv4 (dbwebb)
         $this->di->get("request")->setGet("ip", "194.47.150.9");
         $res = $this->controller->indexAction();
@@ -84,6 +75,5 @@ class IpVerifierAPIControllerTest extends TestCase
         $this->assertEquals("ipv6", $res[0]["type"]);
         $this->assertArrayHasKey("domain", $res[0]);
         $this->assertEquals("dns.google", $res[0]["domain"]);
-        $this->assertEquals("http://localhost:8080/ramverk1/me/redovisa/htdocs/apimock?ip=2001:4860:4860::8888", $res[0]["url"]);
     }
 }

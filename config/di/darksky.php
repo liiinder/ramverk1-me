@@ -5,10 +5,10 @@
 return [
     // Services to add to the container.
     "services" => [
-        "ipverifier" => [
+        "darksky" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Linder\Model\IpVerifier($this);
+                $obj = new \Linder\Model\DarkSky($this);
                 return $obj;
             }
         ],

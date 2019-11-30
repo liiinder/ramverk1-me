@@ -10,19 +10,18 @@ namespace Linder\Model;
 class DarkSky
 {
     private $di;
-    private $config;
     private $url;
 
     /**
      * Constructor, allow for $di to be injected.
      *
-     * @param \Anax\DI\DIFactoryConfig a dependency/service container
+     * @param \Anax\DI\DI a dependency/service container
      */
-    public function __construct(\Anax\DI\DIFactoryConfig $di)
+    public function __construct(\Anax\DI\DI $di)
     {
         $this->di = $di;
-        $this->config = $this->di->get("configuration")->load("api.php");
-        $this->url = $this->di->get("session")->has("test") ? $this->config["config"]["darkskytest"] : $this->config["config"]["darksky"];
+        $config = $this->di->get("configuration")->load("api.php");
+        $this->url = $config["config"]["darksky"];
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace Linder\Controller;
 
-use Anax\DI\DIFactoryConfig;
+use Anax\DI\DIMagic;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,12 +22,11 @@ class APIMockControllerTest extends TestCase
         global $di;
 
         // Setup di
-        $this->di = new DIFactoryConfig();
+        $this->di = new DIMagic();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
 
-        // Set session to test and load the request module
-        $this->di->get("session")->set("test", "true");
-        $this->di->get("request");
+        // Swap out Config directory
+        $this->di->get("configuration")->setBaseDirectories([ANAX_INSTALL_PATH . "/test/config/"]);
 
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
@@ -37,14 +36,6 @@ class APIMockControllerTest extends TestCase
         $this->controller->setDI($this->di);
     }
 
-    /**
-     * Removing the session test after testing is done.
-     */
-    protected function tearDown()
-    {
-        $this->di->get("session")->delete("test");
-    }
-    
     /**
      * Test the route "index".
      */

@@ -10,13 +10,13 @@ return [
         "url" => "http://api.ipstack.com/",
         "key" => "?access_key=[xxxxxxxxxxx]"
     ],
-    "testIpstack" => [
-        "url" => "http://localhost:8080/ramverk1/me/redovisa/htdocs/ipmock?ip=",
-        "key" => ""
+
+    // Darksky using it like this -> url . ["lat,lon"] . single / multi.
+    "darksky" => [
+        "url" => "https://api.darksky.net/forecast/[xxxxxxxx]/",
+        "single" => "?lang=sv&units=si",
+        "multi" => "?exclude=currently,flags&lang=sv&units=si"
     ],
-    // Darksky using it like htis -> url . lat , lon
-    "darksky" => "https://api.darksky.net/forecast/[xxxxxxxxxxx]/",
-    "darkskytest" => "http://localhost:8080/ramverk1/me/redovisa/htdocs/apimock/darkskymock?",
 
     // https://opencagedata.com/tutorials/geocode-in-php
     "opencage" => "[xxxxxxxxxxxxxx]"

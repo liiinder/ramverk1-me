@@ -8,7 +8,9 @@ return [
         "ipverifier" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Linder\Model\IpVerifier($this);
+                $cfg = $this->get("configuration");
+                $config = $cfg->load("api.php");
+                $obj = new \Linder\Model\IpVerifier($config["config"]["ipstack"]);
                 return $obj;
             }
         ],

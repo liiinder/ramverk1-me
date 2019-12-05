@@ -44,17 +44,8 @@ class WeatherController implements ContainerInjectableInterface
         $type = $this->di->get("request")->getGet("type");
         if ($type == "past") {
             $res = $darksky->getWeatherPast($latlon);
-            for ($i = 0; $i < count($res); $i++) {
-                $time = $res[$i]["daily"]["data"][0]["time"];
-                $res[$i]["daily"]["data"][0]["date"] = date("Y-m-d", $time);
-            }
         } else {
-            $res = [];
-            $res[0] = $darksky->getWeatherComing($latlon);
-            for ($i = 0; $i < count($res[0]["daily"]["data"]); $i++) {
-                $time = $res[0]["daily"]["data"][$i]["time"];
-                $res[0]["daily"]["data"][$i]["date"] = date("Y-m-d", $time);
-            }
+            $res = $darksky->getWeatherComing($latlon);
         }
 
         $data = [

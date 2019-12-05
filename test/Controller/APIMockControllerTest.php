@@ -25,9 +25,6 @@ class APIMockControllerTest extends TestCase
         $this->di = new DIMagic();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
 
-        // Swap out Config directory
-        $this->di->get("configuration")->setBaseDirectories([ANAX_INSTALL_PATH . "/test/config/"]);
-
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
         

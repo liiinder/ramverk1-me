@@ -2,7 +2,7 @@
 
 namespace Linder\Controller;
 
-use Anax\DI\DIMagic;
+use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,14 +23,24 @@ class WeatherAPIControllerTest extends TestCase
         global $di;
 
         // Setup di
-        $this->di = new DIMagic();
+        $this->di = new DIFactoryConfig();
         $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
-
-        // Swap out Config directory
-        $this->di->get("configuration")->setBaseDirectories([ANAX_INSTALL_PATH . "/test/config/"]);
 
         // Use geocoder mock instead of opencage
         $this->di->setShared("geocoder", "\Linder\Mock\GeocoderMock");
+
+        // Set configs to use mock servers
+        $ipstack = [
+            "key" => "",
+            "url" => "http://localhost:8080/ramverk1/me/redovisa/htdocs/apimock?ip="
+        ];
+        $darksky = [
+            "url" => "http://localhost:8080/ramverk1/me/redovisa/htdocs/apimock/darkskymock?",
+            "single" => "",
+            "multi" => "?exclude=currently,flags"
+        ];
+        $this->di->get("ipverifier")->setConfig($ipstack);
+        $this->di->get("darksky")->setConfig($darksky);
 
         // View helpers uses the global $di so it needs its value
         $di = $this->di;

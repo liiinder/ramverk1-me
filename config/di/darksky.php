@@ -8,7 +8,9 @@ return [
         "darksky" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Linder\Model\DarkSky($this);
+                $cfg = $this->get("configuration");
+                $config = $cfg->load("api.php");
+                $obj = new \Linder\Model\DarkSky($config["config"]["darksky"]);
                 return $obj;
             }
         ],

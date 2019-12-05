@@ -2,21 +2,30 @@
 
 namespace Linder\Model;
 
+use Linder\Model\Curl;
+
 class IpVerifier
 {
-    private $di;
-    private $api;
+    private $curl;
+    private $config;
 
     /**
      * Constructor, allow for $di to be injected.
      *
-     * @param \Anax\DI\DI a dependency/service container
+     * @param Array $config a config file containing keys url / key
      */
-    public function __construct(\Anax\DI\DI $di)
+    public function __construct($config)
     {
-        $this->di = $di;
-        $config = $this->di->get("configuration")->load("api.php");
-        $this->api = $config["config"]["ipstack"];
+        $this->curl = new Curl();
+        $this->config = $config;
+    }
+
+    /**
+     * Set config
+     */
+    public function setConfig(Array $config)
+    {
+        $this->config = $config;
     }
 
     /**
@@ -30,14 +39,8 @@ class IpVerifier
      */
     public function getJson($ip) : array
     {
-        $url = $this->api["url"] . $ip;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_URL, $url . $this->api["key"]);
-        $data = curl_exec($ch);
-        curl_close($ch);
-        $res = json_decode($data, true);
+        $url = $this->config["url"] . $ip;
+        $res = $this->curl->single($url . $this->config["key"]);
         $res["domain"] = filter_var($ip, FILTER_VALIDATE_IP) ? gethostbyaddr($ip) : null;
         $res["url"] = $url;
 

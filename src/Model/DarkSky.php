@@ -2,6 +2,8 @@
 
 namespace Linder\Model;
 
+use Linder\Model\Curl;
+
 /**
  * A model class retrievieng data from an external server.
  *
@@ -9,19 +11,26 @@ namespace Linder\Model;
  */
 class DarkSky
 {
-    private $di;
-    private $url;
+    private $config;
+    private $curl;
 
     /**
      * Constructor, allow for $di to be injected.
      *
-     * @param \Anax\DI\DI a dependency/service container
+     * @param $config e container
      */
-    public function __construct(\Anax\DI\DI $di)
+    public function __construct(Array $config)
     {
-        $this->di = $di;
-        $config = $this->di->get("configuration")->load("api.php");
-        $this->url = $config["config"]["darksky"];
+        $this->config = $config;
+        $this->curl = new Curl();
+    }
+
+    /**
+     * Set config
+     */
+    public function setConfig(Array $config)
+    {
+        $this->config = $config;
     }
 
     /**
@@ -33,25 +42,15 @@ class DarkSky
      */
     public function getWeatherComing(String $latlon) : array
     {
-
-        // Setup options
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HEADER => 0,
-            CURLOPT_URL => $this->url . $latlon . "?lang=sv&units=si"
-        ];
-        //  Initiate curl handler
-        $ch = curl_init();
-        // Set options
-        curl_setopt_array($ch, $options);
-        // Execute
-        $data = curl_exec($ch);
-        // Closing
-        curl_close($ch);
-        $res = json_decode($data, true);
-
+        $res = [];
+        $res[0] = $this->curl->single($this->config["url"] . $latlon . $this->config["single"]);
+        for ($i = 0; $i < count($res[0]["daily"]["data"]); $i++) {
+            $time = $res[0]["daily"]["data"][$i]["time"];
+            $res[0]["daily"]["data"][$i]["date"] = date("Y-m-d", $time);
+        }
         return $res;
     }
+
 
     /**
      * Function that takes an coordinate and get past 30 days weather
@@ -63,44 +62,17 @@ class DarkSky
     public function getWeatherPast(String $latlon) : array
     {
         $curr = time();
-        $dates = [];
+        $urls = [];
         for ($i = 0; $i < 30; $i++) {
             // take away a day from current time
             $curr -= 86400;
-            $dates[] = $curr;
+            $urls[] = $this->config["url"] . $latlon . "," . $curr . $this->config["multi"];
         }
-        // Setup options
-        $options = [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HEADER => 0,
-        ];
-        // Add all curl handlers and remember them
-        // Initiate the multi curl handler
-        $mh = curl_multi_init();
-        $chAll = [];
-        foreach ($dates as $date) {
-            $ch = curl_init("$this->url$latlon,$date?exclude=currently,flags&lang=sv&units=si");
-            curl_setopt_array($ch, $options);
-            curl_multi_add_handle($mh, $ch);
-            $chAll[] = $ch;
+        $res = $this->curl->multi($urls);
+        for ($i = 0; $i < count($res); $i++) {
+            $time = $res[$i]["daily"]["data"][0]["time"];
+            $res[$i]["daily"]["data"][0]["date"] = date("Y-m-d", $time);
         }
-        // Execute all queries simultaneously,
-        // and continue when all are complete
-        $running = null;
-        do {
-            curl_multi_exec($mh, $running);
-        } while ($running);
-        // Close the handles
-        foreach ($chAll as $ch) {
-            curl_multi_remove_handle($mh, $ch);
-        }
-        curl_multi_close($mh);
-        // All of our requests are done, we can now access the results
-        $response = [];
-        foreach ($chAll as $ch) {
-            $data = curl_multi_getcontent($ch);
-            $response[] = json_decode($data, true);
-        }
-        return $response;
+        return $res;
     }
 }

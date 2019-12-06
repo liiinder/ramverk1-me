@@ -21,7 +21,7 @@ namespace Anax\View;
         <input type="submit" value="Sök">
     </form>
     <p>
-    <div id="map">
+    <div id="map" style="height:500px">
     </div>
     <?php
     if (isset($res[0]["daily"])) {

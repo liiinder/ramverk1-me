@@ -1,10 +1,5 @@
-<?php
-
-namespace Anax\View;
-
-?>
 <article>
-<?= $content ?>
+<h1>Dokumentation för sidans API'er<h1>
 
 <h2>Ipverifier API</h2>
 <p>

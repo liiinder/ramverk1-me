@@ -74,5 +74,25 @@ return [
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",
         ],
+                [
+            "text" => "IP-verifier",
+            "url" => "ipverifier",
+            "title" => "Verktyg för att verifiera ip",
+        ],
+        [
+            "text" => "Weather info",
+            "url" => "weather",
+            "title" => "Verktyg för att söka väder för en plats"
+        ],
+        [
+            "text" => "API doc",
+            "url" => "api",
+            "title" => "API documentation"
+        ],
+        [
+            "text" => "Book",
+            "url" => "book",
+            "title" => "book database"
+        ]
     ],
 ];

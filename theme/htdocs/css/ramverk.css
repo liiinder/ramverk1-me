@@ -5799,6 +5799,28 @@ a {
   color: #111;
 }
 /**
+* Layout for book part
+*/
+#form-element-description,
+#form-element-imageurl,
+#form-element-author,
+#form-element-title {
+  width: 100%;
+}
+#form-element-description {
+  height: 150px;
+}
+#books {
+  border-collapse: collapse;
+}
+#books td {
+  padding: 0.5em;
+  border: 1px solid #333;
+}
+#books tr:nth-child(even) {
+  background-color: #eee;
+}
+/**
  * Variables
  */
 @font-face {

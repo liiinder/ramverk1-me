@@ -45,11 +45,11 @@ return [
                         "url" => "redovisning/kmom05",
                         "title" => "Redovisning för kmom05.",
                     ],
-                    // [
-                    //     "text" => "Kmom06",
-                    //     "url" => "redovisning/kmom06",
-                    //     "title" => "Redovisning för kmom06.",
-                    // ],
+                    [
+                        "text" => "Kmom06",
+                        "url" => "redovisning/kmom06",
+                        "title" => "Redovisning för kmom06.",
+                    ],
                     // [
                     //     "text" => "Kmom10",
                     //     "url" => "redovisning/kmom10",
@@ -87,6 +87,11 @@ return [
             "text" => "API doc",
             "url" => "api",
             "title" => "API documentation"
+        ],
+        [
+            "text" => "Book",
+            "url" => "book",
+            "title" => "book database"
         ]
     ],
 ];
